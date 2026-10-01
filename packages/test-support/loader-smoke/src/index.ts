@@ -12,10 +12,23 @@
  */
 
 import { clearedProxyEnv } from '@deepseek-ai/dsh-http-proxy'
+import { createRequire } from 'node:module'
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import { pathToFileURL } from 'node:url'
 import { execa } from 'execa'
+
+// vitest 4 的 vite-node module runner 不支持 `import.meta.resolve`（module runner 限制），
+// 而 smoke 测试在 vitest 下运行。改用 createRequire.resolve（node 24 对 exports 的
+// import 条件解析结果与 import.meta.resolve 一致：tsx→dist/loader.mjs、tsx/esm→dist/esm/index.mjs），
+// 再以 pathToFileURL 还原为 file URL 形态，保持与原生 import.meta.resolve 的返回格式一致。
+const requireFromModule = createRequire(import.meta.url)
+
+/** 解析 tsx loader 入口（替代 import.meta.resolve；vitest 下亦可用） */
+function resolveTsxLoader(specifier: string): string {
+  return pathToFileURL(requireFromModule.resolve(specifier)).href
+}
 
 export {
   runFixtureTurn,
@@ -121,8 +134,8 @@ export function resolveExampleLaunch(options: ExampleLaunchOptions): ExampleLaun
       throw new Error("resolveExampleLaunch: 'src' mode needs tsconfigPath for the workspace paths map.")
     }
     const tsxLoader = options.sourceImport === 'tsx/esm'
-      ? import.meta.resolve('tsx/esm')
-      : import.meta.resolve('tsx')
+      ? resolveTsxLoader('tsx/esm')
+      : resolveTsxLoader('tsx')
     env.TSX_TSCONFIG_PATH = options.tsconfigPath
     return { command: process.execPath, args: ['--import', tsxLoader, options.srcBin, ...configArgs], env }
   }

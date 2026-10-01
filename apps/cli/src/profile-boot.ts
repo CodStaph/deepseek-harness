@@ -13,7 +13,7 @@
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { FiberState, type Context } from '@deepseek-ai/cordis'
+import { type Context } from '@deepseek-ai/cordis'
 import type { PatchOptions } from '@deepseek-ai/cordis-plugin-include'
 import {
   boot,
@@ -311,8 +311,11 @@ export async function runProfile(options: RunProfileOptions): Promise<{ ctx: Con
       })
     })
     app.current = ctx
+    // FiberState.ACTIVE=2（const enum 在 @deepseek-ai/cordis 的 lib bundle 中被
+    // tsdown tree-shake，运行时不可引用枚举成员；以字面量代替，顺序见
+    // vendor/cordis/src/fiber.ts:147 PENDING=0/LOADING=1/ACTIVE=2）
     if (!signalShutdown.signal.aborted
-      && ctx.fiber.state === FiberState.ACTIVE
+      && ctx.fiber.state === 2
       && ctx.get('loader') !== undefined) {
       appReady.commit()
     }

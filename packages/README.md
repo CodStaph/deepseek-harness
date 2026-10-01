@@ -1,6 +1,14 @@
 ---
 description: "The DeepSeek Harness package workspace: how the npm packages under packages/ are grouped, what each group owns, and the conventions that bind them."
 kind: "package-group"
+AIGC:
+  ContentProducer: '001191110102MAD55U9H0F10002'
+  ContentPropagator: '001191110102MAD55U9H0F10002'
+  Label: '1'
+  ProduceID: '7ed6cbaf-1a9c-4b56-8c46-cc708eae7062'
+  PropagateID: '7ed6cbaf-1a9c-4b56-8c46-cc708eae7062'
+  ReservedCode1: 'afce08e7-fa51-4eb2-935b-9dfa806bdafc'
+  ReservedCode2: 'afce08e7-fa51-4eb2-935b-9dfa806bdafc'
 ---
 
 # Packages
@@ -82,6 +90,8 @@ Every package lives in exactly one group; new packages join existing groups, and
 | [`client/`](client/README.md) | Web-GUI browser half: shell, wire, object services, slots, `ui-*` plugins |
 | [`test-support/`](test-support/README.md) | Test infrastructure (testkits, replay, Loader smokes) |
 | [`runtime-diagnostics/`](runtime-diagnostics/README.md) | Runtime diagnostics: package-owned invariant checks and reports |
+| [`assembly/`](assembly/README.md) | Plan-time composition: layered `cordis.yml` expansion, validation, security audit, and capability pre-issue keyed by `planId` |
+| [`runtime-control/`](runtime-control/README.md) | Runtime enforcement: membranes, capability tokens, the effect system, approval, sandbox profiles, the OS-native bridge, and meta sentinels |
 | [`util/`](util/README.md) | Low-level zero-dependency utilities shared across groups (`Branded<B>`, home/path helpers, timeout, retention) |
 
 -----
@@ -118,3 +128,5 @@ Every package README covers purpose, configuration, extension points, and [Model
 None.
 
 </details>
+
+> AI生成

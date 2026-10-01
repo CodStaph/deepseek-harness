@@ -7,7 +7,7 @@
  */
 
 import { expect } from 'vitest'
-import { FiberState, Inject, RegistryService, ValidationError } from '@deepseek-ai/cordis'
+import { Inject, RegistryService, ValidationError } from '@deepseek-ai/cordis'
 import type { Context, Plugin } from '@deepseek-ai/cordis'
 import InvariantRegistry from '@deepseek-ai/dsh-invariants'
 
@@ -85,7 +85,7 @@ RegistryService.prototype.plugin = function(plugin: Plugin, config?: unknown, ge
     config,
     getOuterStack,
   )
-  const initiallyPending = fiber.ctx.fiber.state === FiberState.PENDING
+  const initiallyPending = fiber.ctx.fiber.state === 0 /* FiberState.PENDING */
   host.barrierOwners.add(fiber.ctx.fiber)
   return joinInvariantStartup(fiber, host.ready, initiallyPending)
 }
@@ -173,7 +173,7 @@ function hasBarrierOwner(host: InvariantHost, ctx: Context): boolean {
   while (true) {
     if (
       host.barrierOwners.has(fiber)
-      && (fiber.state === FiberState.LOADING || fiber.state === FiberState.ACTIVE)
+      && (fiber.state === 1 /* FiberState.LOADING */ || fiber.state === 2 /* FiberState.ACTIVE */)
     ) {
       return true
     }
@@ -185,7 +185,7 @@ function hasBarrierOwner(host: InvariantHost, ctx: Context): boolean {
 
 async function requireActive(fiber: PluginFiber, label: string): Promise<void> {
   await fiber.await()
-  if (fiber.state !== FiberState.ACTIVE) {
+  if (fiber.state !== 2 /* FiberState.ACTIVE */) {
     throw new Error(`test invariants: ${label} settled without becoming active`)
   }
 }

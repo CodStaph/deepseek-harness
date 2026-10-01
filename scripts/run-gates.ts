@@ -356,6 +356,11 @@ function ciSharedStaticGates(): Gate[] {
     ...sharedHygieneGates(),
     pnpmScript('approval-policy', 'test:approval-policy', { label: 'Weighted approval policy' }),
     pnpmScript('issue-management', 'test:issue-management', { label: 'Issue management policy' }),
+    // Runtime-control meta gates (cordis-mirror batch 1-7): the SEC diagnostic
+    // catalog scan and the complexity redline are static source facts, so they
+    // join the shared static aggregate every CI lane inherits.
+    pnpmScript('sec-catalog', 'check:sec', { label: 'SEC diagnostic catalog' }),
+    pnpmScript('redline', 'check:redline', { label: 'runtime-control redline' }),
   ]
 }
 

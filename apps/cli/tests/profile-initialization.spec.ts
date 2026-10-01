@@ -1,9 +1,10 @@
 /** One-time custom-profile initialization from shipped templates. */
 
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { createRequire } from 'node:module'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 import {
   initProfile,
   PROFILE_PATCH_FILENAME,
@@ -17,7 +18,9 @@ import { execa } from 'execa'
 import { initializeProfileFromDefault } from '../src/profile-boot.ts'
 
 const childEntry = fileURLToPath(new URL('./fixtures/initialize-profile-from-default.ts', import.meta.url))
-const tsxLoader = import.meta.resolve('tsx/esm')
+// vitest 4 的 vite-node 不支持 import.meta.resolve；用 createRequire + pathToFileURL
+// 解析 tsx/esm（node 24 对 exports 的解析结果与 import.meta.resolve 一致）。
+const tsxLoader = pathToFileURL(createRequire(import.meta.url).resolve('tsx/esm')).href
 const CHILD_TIMEOUT_MS = 30_000
 
 /** Wait until a child has reached the shared creation barrier. */

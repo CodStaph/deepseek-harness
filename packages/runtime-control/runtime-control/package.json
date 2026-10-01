@@ -1,0 +1,42 @@
+{
+  "name": "@deepseek-ai/dsh-runtime-control",
+  "description": "运行时管控层——服务访问膜 + 能力令牌 + 效果系统（fs/net/proc/env/mcp）+ 隔离域 + 违规处理 + 审批语义 + No-Lob 排除 + skill 面管控 + 沙箱档位 + 元层纪律（哨兵/重算器/三态披露）。镜像工作区 cordis-mirror/packages/runtime-control 平移并入（M2 S9-S14 + M3 S16-S18 + M4 S19-S20 + M5 S21-S23）。",
+  "version": "0.2.0-rc.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "directory": "packages/runtime-control/runtime-control"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@deepseek-ai/dsh-sandbox-windows-acl": "workspace:*",
+    "@deepseek-ai/dsh-win32-process": "workspace:*",
+    "@modelcontextprotocol/client": "2.0.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-assembly": "workspace:*"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-assembly": "workspace:*"
+  }
+}

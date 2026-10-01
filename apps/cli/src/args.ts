@@ -57,8 +57,15 @@ interface PluginInvocation {
   args: string[]
 }
 
+/** 装配面：`dsh config` 子命令（expand/diff/capabilities/dry-run，批次 1-3 接线）。 */
+interface ConfigInvocation {
+  mode: 'config'
+  /** 子命令参数，verbatim 交给装配层 CLI（@deepseek-ai/dsh-assembly）。 */
+  args: string[]
+}
+
 /** The resolved `dsh` invocation. Help, version, and errors exit inside {@link parseDshArgs}. */
-export type DshInvocation = ProfileInvocation | DumpConfigInvocation | DumpConfigSchemaInvocation | PluginInvocation
+export type DshInvocation = ProfileInvocation | DumpConfigInvocation | DumpConfigSchemaInvocation | PluginInvocation | ConfigInvocation
 
 /** Launcher flags for profile boot and configuration dumps. */
 interface BootOptions {
@@ -184,7 +191,15 @@ export function parseDshArgs(argv: readonly string[], version: string, manageDes
       resolved = resolveBoot(program, profile, options, args)
     })
 
-  if (first === 'plugin') {
+  if (first === 'config') {
+    const config = program.command('config').description('装配面：展开/干跑 Cordis 装配层（--expand/--dry-run），boot-free，参数转发 @deepseek-ai/dsh-assembly')
+    config
+      .allowUnknownOption()
+      .argument('[args...]', '装配层参数，verbatim 转发（--expand <层文件…> / --dry-run <层文件…> / --lenient-capabilities）')
+      .action((args: string[]) => {
+        resolved = { mode: 'config', args }
+      })
+  } else if (first === 'plugin') {
     const plugin = program.command('plugin').description('manage a profile\'s plugins by forwarding the remaining arguments to pnpm in the profile directory')
     plugin
       .requiredOption('--profile <name>', 'the profile whose plugins to manage (initialized on first use)', selectProfile)
@@ -199,7 +214,7 @@ export function parseDshArgs(argv: readonly string[], version: string, manageDes
   }
 
   try {
-    const expanded = first !== undefined && !first.startsWith('-') && first !== 'plugin'
+    const expanded = first !== undefined && !first.startsWith('-') && first !== 'plugin' && first !== 'config'
       ? ['--profile', ...argv]
       : argv
     program.parse(expanded, { from: 'user' })

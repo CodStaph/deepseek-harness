@@ -1,0 +1,55 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/assembly/assembly/README.md
+/:
+  en: bda2b0a4792f85be
+  zh: c568852588334491
+/deepseek-ai-dsh-assembly:
+  en: 6b240a8d3fe31bfe
+  zh: d12f89733a1417b0
+/deepseek-ai-dsh-assembly/summary:
+  en: 26cbb61898d1a887
+  zh: edfa1d95e3dac2b2
+/deepseek-ai-dsh-assembly/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/deepseek-ai-dsh-assembly/use-this-package:
+  en: e51ce0b22f162a8e
+  zh: 87d4055374f7220a
+/deepseek-ai-dsh-assembly/use-this-package/when-to-choose-it:
+  en: 961b9caaf9f5f844
+  zh: fec0178f3b5367aa
+/deepseek-ai-dsh-assembly/use-this-package/entry-point:
+  en: e1270b049e122820
+  zh: 415416dd1f37e0d7
+/deepseek-ai-dsh-assembly/understand-the-implementation:
+  en: 91d169f066128286
+  zh: 204a3001a907b3dc
+/deepseek-ai-dsh-assembly/understand-the-implementation/pipeline-order:
+  en: 0390ff5af5943a45
+  zh: 4c86eb49f6c60e8d
+/deepseek-ai-dsh-assembly/understand-the-implementation/trust-model:
+  en: 4f89335a84899a32
+  zh: 5bb5d01fe1c60b0b
+/deepseek-ai-dsh-assembly/understand-the-implementation/source-map:
+  en: 9c02858a123d9a2f
+  zh: a44a564887fcf427
+/deepseek-ai-dsh-assembly/further-exploration:
+  en: ad3e55e15e6c02f0
+  zh: 559e51543c939b80
+/deepseek-ai-dsh-assembly/model-experience:
+  en: b72f6e17a30f62bc
+  zh: 87a45429c443eea7
+/deepseek-ai-dsh-assembly/model-experience/kv-cache-effect:
+  en: 471a273b1c1892e7
+  zh: eb184a3ee5903c74
+/deepseek-ai-dsh-assembly/known-limitations-and-deferred-work:
+  en: 581cf6269975c9e9
+  zh: 5b2a48b6f31bdff8
+/deepseek-ai-dsh-assembly/known-limitations-and-deferred-work/dev-note:
+  en: a51939b534eb68e7
+  zh: 1889399fc10afe6d
+/deepseek-ai-dsh-assembly/known-limitations-and-deferred-work/dev-note/future-plan-time-schema-tightening:
+  en: 29fed0750ca9a999
+  zh: 2327d027b273a2c0

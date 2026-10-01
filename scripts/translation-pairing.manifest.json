@@ -8,6 +8,9 @@
     "docs/cordis-api/inherited.md",
     "docs/i18n/style-samples.md",
     "docs/i18n/terminology.md",
-    "docs/i18n/translation-prompt.md"
+    "docs/i18n/translation-prompt.md",
+    "packages/assembly/assembly/docs/cordis-assembly-control-architecture.zh.md",
+    "packages/runtime-control/runtime-control/docs/cordis-runtime-security-architecture.zh.md",
+    "packages/runtime-control/runtime-control/docs/cordis-assembly-runtime-milestones.zh.md"
   ]
 }

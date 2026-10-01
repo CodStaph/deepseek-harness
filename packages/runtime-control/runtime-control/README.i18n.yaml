@@ -1,0 +1,61 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/runtime-control/runtime-control/README.md
+/:
+  en: 3c1df17b1cede40c
+  zh: eb326a391beb17ad
+/deepseek-ai-dsh-runtime-control:
+  en: abf8f49cb692fb15
+  zh: de6244b5b5568fb2
+/deepseek-ai-dsh-runtime-control/summary:
+  en: bed7e9437a7ae314
+  zh: d1c97754e93f5325
+/deepseek-ai-dsh-runtime-control/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/deepseek-ai-dsh-runtime-control/use-this-package:
+  en: 8bc509c6339956f0
+  zh: 94800aaa6f576b54
+/deepseek-ai-dsh-runtime-control/use-this-package/when-to-choose-it:
+  en: c66b0b2f9d401759
+  zh: 7163648e8e7d083e
+/deepseek-ai-dsh-runtime-control/use-this-package/entry-point:
+  en: fedbccd9337789d9
+  zh: cb9bbb6974bc719d
+/deepseek-ai-dsh-runtime-control/understand-the-implementation:
+  en: cf92e25fb2412731
+  zh: 0fbc2f71862db4a1
+/deepseek-ai-dsh-runtime-control/understand-the-implementation/three-layer-discipline:
+  en: 5a9ea1ef57dd5b68
+  zh: c116c075f6b314cf
+/deepseek-ai-dsh-runtime-control/understand-the-implementation/the-judgment-chain:
+  en: 8d1145197ce2a21b
+  zh: f6385cf96c3d6757
+/deepseek-ai-dsh-runtime-control/understand-the-implementation/sandbox-and-native-bridge:
+  en: 802876f9d84965bb
+  zh: e99ba61a5e4271b9
+/deepseek-ai-dsh-runtime-control/understand-the-implementation/meta-discipline:
+  en: 806820e485df9e98
+  zh: afa9249a01057dc5
+/deepseek-ai-dsh-runtime-control/understand-the-implementation/source-map:
+  en: 795960d5eee98e6b
+  zh: 4ad610326de22e0b
+/deepseek-ai-dsh-runtime-control/further-exploration:
+  en: 382e981641f516cc
+  zh: b7a11b9108888131
+/deepseek-ai-dsh-runtime-control/model-experience:
+  en: eeb1799c89c220d3
+  zh: c58bd1fe40041762
+/deepseek-ai-dsh-runtime-control/model-experience/kv-cache-effect:
+  en: 46d7304717ff63fa
+  zh: c0d13868c49eabe1
+/deepseek-ai-dsh-runtime-control/known-limitations-and-deferred-work:
+  en: c10cb7886530639a
+  zh: 2f854d3b87e92ca8
+/deepseek-ai-dsh-runtime-control/known-limitations-and-deferred-work/dev-note:
+  en: a51939b534eb68e7
+  zh: 1889399fc10afe6d
+/deepseek-ai-dsh-runtime-control/known-limitations-and-deferred-work/dev-note/future-strict-mode-gradient-rollout:
+  en: 4be3ed72eb38fab7
+  zh: f0e45677ea3883dc

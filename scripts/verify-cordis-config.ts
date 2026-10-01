@@ -14,6 +14,7 @@ import { globSync, readFileSync } from 'node:fs'
 import { dirname, relative, resolve } from 'node:path'
 import { Script } from 'node:vm'
 import ts from 'typescript'
+import { buildDryRunPlan, isYamlConfigFile } from '@deepseek-ai/dsh-assembly'
 import type { DshBundleManifest } from '../packages/util/package-manifest/src/types.ts'
 import { bundlePatchFiles, bundlePatchPaths } from '../packages/boot/app-boot/src/profile.ts'
 import { cordisConfigFiles } from './cordis-config-files.ts'
@@ -73,6 +74,10 @@ if (import.meta.main) {
     }
   }
 
+  // 批次 1-3 收敛：装配层干跑门（dsh 装配 yml 由 @deepseek-ai/dsh-assembly 消费，
+  // 装配静态/动态诊断并入本门；A7 对拍：装配有 error 级诊断 → 退出码 1 与既有一致）。
+  errors.push(...verifyAssemblyGate(files))
+
   errors.push(...validateAppResolution())
   errors.push(...validatePackageTestResolution())
   errors.push(...packageTestFixtureDependencyErrors())
@@ -87,6 +92,29 @@ if (import.meta.main) {
   } else {
     console.log(`verify-cordis-config: ${files.length} config files passed.`)
   }
+}
+
+/**
+ * 批次 1-3：装配层干跑门（A 收敛）——对每个可装配 yml 跑装配 dryRun，
+ * 把 error 级 SEC 诊断并入本门；与既有错误按消息去重（避免同一缺陷双报）。
+ */
+function verifyAssemblyGate(files: readonly string[]): string[] {
+  const out: string[] = []
+  for (const file of files) {
+    if (!isYamlConfigFile(file)) continue
+    let plan
+    try {
+      plan = buildDryRunPlan({ sources: [resolve(root, file)] })
+    } catch {
+      continue // 根非数组等形态由本门上方既有检查承接
+    }
+    for (const d of plan.validation.diagnostics) {
+      if (d.severity !== 'error') continue
+      const msg = `${file}: [装配] ${d.code ?? ''} ${d.message}`
+      if (!out.includes(msg)) out.push(msg)
+    }
+  }
+  return out
 }
 
 /**

@@ -1,6 +1,14 @@
 ---
 description: "DeepSeek Harness 包工作区：packages/ 下的 npm 包如何分组、每个组负责什么，以及约束它们的约定。"
 kind: "package-group"
+AIGC:
+  ContentProducer: '001191110102MAD55U9H0F10002'
+  ContentPropagator: '001191110102MAD55U9H0F10002'
+  Label: '1'
+  ProduceID: 'a23e25ec-17e9-4c48-a59c-194a22395b64'
+  PropagateID: 'a23e25ec-17e9-4c48-a59c-194a22395b64'
+  ReservedCode1: '74e5649d-3f01-4b02-a4ce-129f9b052a24'
+  ReservedCode2: '74e5649d-3f01-4b02-a4ce-129f9b052a24'
 ---
 
 # 包
@@ -82,6 +90,8 @@ harness 由 `packages/` 下的 npm 包组装而成，按能力系列分组：会
 | [`client/`](client/README.zh.md) | web GUI 浏览器半侧：shell、协议层、对象服务、slot、`ui-*` 插件 |
 | [`test-support/`](test-support/README.zh.md) | 测试基础设施（testkit、回放、Loader 冒烟测试） |
 | [`runtime-diagnostics/`](runtime-diagnostics/README.zh.md) | 运行时诊断：按包归属的运行时不变式检查与报告 |
+| [`assembly/`](assembly/README.zh.md) | 计划期组合：分层 `cordis.yml` 展开、校验、安全审计与以 `planId` 为键的能力预颁发 |
+| [`runtime-control/`](runtime-control/README.zh.md) | 运行时强制：膜、能力令牌、效果系统、审批、沙箱档位、OS 原生桥与元层哨兵 |
 | [`util/`](util/README.zh.md) | 组间共享的低层零依赖工具（`Branded<B>`、home／路径辅助函数、超时、留存） |
 
 -----
@@ -118,3 +128,5 @@ harness 由 `packages/` 下的 npm 包组装而成，按能力系列分组：会
 无。
 
 </details>
+
+> AI生成

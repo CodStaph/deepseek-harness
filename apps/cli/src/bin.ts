@@ -67,6 +67,24 @@ export async function runCli(options: RunCliOptions = {}): Promise<void> {
       await runDumpConfigSchema(invocation.profile, invocation.patches, invocation.fromDefaultProfile)
       break
     }
+    case 'config': {
+      // 批次 1-3：`dsh config` 装配面（expand/diff/capabilities/dry-run），boot-free。
+      const { run, parseArgv, buildDryRunPlan, dryRunExitCode } = await import('@deepseek-ai/dsh-assembly')
+      process.stdout.write(`${run(invocation.args)}\n`)
+      const opts = parseArgv(invocation.args)
+      if (opts.command === 'dry-run') {
+        try {
+          const plan = buildDryRunPlan(
+            { sources: opts.sources },
+            { ...(opts.lenientCapabilities !== undefined ? { lenientCapabilities: opts.lenientCapabilities } : {}) },
+          )
+          process.exitCode = dryRunExitCode(plan)
+        } catch {
+          process.exitCode = 1
+        }
+      }
+      break
+    }
     default:
       invocation satisfies never
       throw new Error(`dsh: unhandled invocation mode ${JSON.stringify(invocation)}`)

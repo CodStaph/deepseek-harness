@@ -55,6 +55,7 @@ const KIND_TEMPLATES: Readonly<Record<string, string>> = {
  * library; the check re-derives the entry shape so a stale entry fails loud.
  */
 const PACKAGE_LIBRARIES: Readonly<Record<string, string>> = {
+  'packages/assembly/assembly': 'Assembly plan builder consumed by host config tooling; plain module exports with no plugin entry.',
   'packages/experimental/browser-use-runtime': 'Provider-owned browser resource management and MCP integration helpers; no plugin entry.',
   'packages/boot/app-boot': 'Boot library the app bins import; plain helper exports.',
   'packages/boot/cmdline': 'Command-line library the app bins import; plain module exports.',
@@ -85,6 +86,7 @@ const PACKAGE_LIBRARIES: Readonly<Record<string, string>> = {
   'packages/test-support/llm-mock-server': 'Test server library; substitutes provider wire behavior.',
   'packages/test-support/loader-smoke': 'Test harness library; mounts nothing into a product composition.',
   'packages/test-support/remote-mock': 'Browser-side test infrastructure; mounts nothing into a product composition.',
+  'packages/runtime-control/runtime-control': 'Runtime-control enforcement library consumed by host compositions; plain module exports with no plugin entry.',
   'packages/typert/generator': 'Build-time generator run outside any agent runtime.',
   'packages/typert/protocol': 'Compiler-independent protocol declarations.',
   'packages/util/atomic-write': 'Zero-dependency filesystem write utility.',
@@ -391,7 +393,7 @@ describe('dsh-doc skill consolidation', () => {
       const entry = resolve(root, dir, 'src/index.ts')
       expect(existsSync(entry), `${dir}: library entry`).toBe(true)
       const source = readFileSync(entry, 'utf8')
-      expect(source, `${dir}: entry must be a plain module, not a plugin`).not.toMatch(/export (?:default|\{[^}]*default[^}]*\} from)/u)
+      expect(source, `${dir}: entry must be a plain module, not a plugin`).not.toMatch(/export (?:default|\{[^}]*\bdefault\b[^}]*\} from)/u)
       expect(source, `${dir}: entry must be a plain module, not a plugin`).not.toMatch(/export (?:async )?(?:function|const) apply\b/u)
     }
   })
